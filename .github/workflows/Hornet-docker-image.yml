@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag hornet:latest-$(date +%s)
+      run: docker build . --file docker/Dockerfile --tag hornet:latest-$(date +%s)
