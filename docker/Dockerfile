@@ -18,15 +18,15 @@ RUN mkdir /app
 WORKDIR /app
 
 # Use Go Modules
-COPY ../go.mod .
-COPY ../go.sum .
+COPY go.mod .
+COPY go.sum .
 
 ENV GO111MODULE=on
 RUN go mod download
 RUN go mod verify
 
 # Copy everything from the current directory to the PWD(Present Working Directory) inside the container
-COPY ../ .
+COPY . .
 
 # Build the binary
 RUN GOOS=linux GOARCH=amd64 go build \
@@ -50,10 +50,10 @@ EXPOSE 1883/tcp
 COPY --chown=nonroot:nonroot --from=build /go/bin/hornet /app/hornet
 
 # Copy the assets
-COPY ../config.json /app/config.json
-COPY ../config_comnet.json /app/config_comnet.json
-COPY ../peering.json /app/peering.json
-COPY ../profiles.json /app/profiles.json
+COPY ./config.json /app/config.json
+COPY ./config_comnet.json /app/config_comnet.json
+COPY ./peering.json /app/peering.json
+COPY ./profiles.json /app/profiles.json
 
 WORKDIR /app
 USER nonroot
